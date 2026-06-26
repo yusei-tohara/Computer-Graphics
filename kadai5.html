@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Three.js クリッピング確認</title>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+
+<body>
+
+  <canvas id="myCanvas"></canvas>
+
+  <script type="module">
+
+    import * as THREE from "three";
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(
+      60,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      80,
+    );
+
+    const cameraMatrix = new THREE.Matrix4();
+
+    cameraMatrix.set(
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 5,
+      0, 0, 0, 1
+    );
+
+    camera.applyMatrix4(cameraMatrix);
+
+    const canvas = document.getElementById("myCanvas");
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas
+    });
+
+    renderer.setSize(
+      window.innerWidth,
+      window.innerHeight
+    );
+
+    const geometry = new THREE.BoxGeometry();
+
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x00ff00,
+      wireframe: true
+    });
+
+    const cube = new THREE.Mesh(
+      geometry,
+      material
+    );
+
+    scene.add(cube);
+
+    const translationMatrix = new THREE.Matrix4();
+
+    translationMatrix.set(
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, -5,
+      0, 0, 0, 1
+    );
+
+    cube.applyMatrix4(
+      translationMatrix
+    );
+
+  
+    cube.rotation.y =
+      THREE.MathUtils.degToRad(45);
+
+    function animate() {
+
+      requestAnimationFrame(animate);
+
+      renderer.render(scene, camera);
+
+    }
+
+    animate();
+
+  </script>
+
+</body>
+
+</html>
