@@ -1,9 +1,7 @@
-# Computer-Graphics
-
 #使用技術
-* HTML
-* JavaScript
-* Three.js
+・HTML
+・JavaScript
+・Three.js
 
 #内容
 ・Three.jsを用いて3D空間上に立方体を描画
