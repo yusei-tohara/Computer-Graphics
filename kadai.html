@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>課題①</title>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.module.js"
+  }
+}
+</script>
+
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+
+<script type="module">
+import * as THREE from "three";
+
+// シーン
+const scene = new THREE.Scene();
+
+// カメラ
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+// レンダラー
+const renderer = new THREE.WebGLRenderer({
+  canvas: document.getElementById("myCanvas")
+});
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+// 立方体（青色）
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshBasicMaterial({ color: 0x0000ff }); // 青
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+// カメラ位置
+camera.position.z = 5;
+
+// 描画ループ
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+animate();
+
+</script>
+</body>
+</html>
